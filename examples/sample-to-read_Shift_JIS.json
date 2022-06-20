@@ -1,0 +1,21 @@
+{
+  "rootObject": {
+    "firstProp": "Example of JSON for AHK",
+    "childNode1": {
+      "trueProp": true,
+      "falseProp": false,
+      "numberProp": 3,
+      "strNumberProp": "05",
+      "arrayProp": ["AutoHotkey", "JSON", "Tuckn"]
+    },
+    "childNode2": {
+      "winPath": "C:\\Program Files (x86)",
+      "JpText": "“ú–{Œê‚Ì•¶Žš‚Ì‚Ü‚ÜŠi”[‚µ‚½•¶Žš—ñ",
+      "emptyString": "",
+      "zero": 0,
+      "zero5dim": 00000,
+      "emptyArray": [],
+      "emptyObject": {}
+    }
+  }
+}

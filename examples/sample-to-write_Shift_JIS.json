@@ -1,0 +1,26 @@
+{
+    "newRootObj": "Write with AHK script at 2022-06-14",
+    "rootObject": {
+        "childNode1": {
+            "arrayProp": [
+                "AutoHotkey",
+                "JSON",
+                "Tuckn"
+            ],
+            "falseProp": 0,
+            "numberProp": 3,
+            "strNumberProp": "05",
+            "trueProp": 1
+        },
+        "childNode2": {
+            "emptyArray": [],
+            "emptyObject": {},
+            "emptyString": "",
+            "JpText": "“ú–{Œê‚Ì•¶Žš‚Ì‚Ü‚ÜŠi”[‚µ‚½•¶Žš—ñ",
+            "winPath": "C:\\Program Files (x86)",
+            "zero": 0,
+            "zero5dim": 0
+        },
+        "firstProp": "Example of JSON for AHK"
+    }
+}
