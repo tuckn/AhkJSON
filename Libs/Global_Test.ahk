@@ -1,12 +1,12 @@
-GetStringFromObject(obj, indent="")
+DumpObjectToString(obj, indent="")
 {
-  newIndent .= indent . "  "
-  rtnStr := "{`n"
+  local newIndent .= indent . "  "
+  local rtnStr := "{`n"
 
   For k, v in obj
   {
     if (IsObject(v)) {
-      rtnStr .= newIndent . k . ": " . GetStringFromObject(v, newIndent)
+      rtnStr .= newIndent . k . ": " . DumpObjectToString(v, newIndent)
     } else {
       rtnStr .= newIndent . k . ": " . v . "`n"
     }

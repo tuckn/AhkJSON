@@ -92,7 +92,6 @@ This project is licensed under the [MIT License](./LICENSE). You are free to use
 ## Contact
 
 - **Author**: Tuckn  
-- **Email**: tuckn333@gmail.com  
-- **GitHub**: [https://github.com/tuckn/AhkJson](https://github.com/tuckn/AhkJson)
+- **X (Twitter)**: [https://x.com/Tuckn333](https://x.com/Tuckn333)
 
 Feel free to open issues or pull requests on GitHub if you have any questions, suggestions, or bug reports.
