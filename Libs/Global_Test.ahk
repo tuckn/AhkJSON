@@ -16,3 +16,5 @@ DumpObjectToString(obj, indent="")
 
   Return rtnStr
 }
+
+MsgBox, Press [Ctrl] + [Shift] + [9], Run the test.
