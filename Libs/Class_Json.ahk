@@ -1,42 +1,39 @@
 ﻿/**
- * @Updated 2019/06/16
  * @Fileoverview JSON handler for AutoHotkey
- * @Fileencodeing UTF-8[dos]
- * @Requirements AutoHotkey (v1.1+ or v2.0-a+)
+ * @FileEncoding UTF-8[dos]
+ * @Requirements AutoHotkey v1.1.x. Not confirmed to work on v2.0 or newer.
  * @Installation
- *   Use #Include %A_ScriptDir%\AhkJsonManager\JSON.ahk or copy into your code
+ *   Use #Include %A_ScriptDir%\AhkJson\Libs\Class_Json.ahk or copy into your code
  * @License MIT
  * @Links
- *   cocobelgica(original) https://github.com/cocobelgica/AutoHotkey-JSON
- *   Tuckn(forked v2.1.3) https://github.com/tuckn/AhkJsonManager
- * @Links https://github.com/tuckn/AhkDesktopManager
+ *   cocobelgica (original) https://github.com/cocobelgica/AutoHotkey-JSON
+ *   Tuckn (forked v2.1.3) https://github.com/tuckn/AhkJson
  * @Author Tuckn
- * @Email tuckn333+github@gmail.com
+ * @Email tuckn333@gmail.com
  */
 
 /**
  * @Class JSON
- * @Discription The JSON object contains methods for parsing JSON and
- *   converting values to JSON.
+ * @Description The JSON object contains methods for parsing JSON and converting values to JSON.
  *   Callable - NO; Instantiable - YES; Subclassable - YES;
  *   Nestable(via #Include) - NO.
  * @Methods
- *   Load(...) - see relevant documentation before method definition header
- *   Dump(...) - see relevant documentation before method definition header
+ *   Parse(...) - see relevant documentation before method definition header
+ *   Stringify(...) - see relevant documentation before method definition header
  *   ReadFile(...) - Read a JSON file
  *   WriteFile(...) - Write a JSON data to the file
  */
 class JSON
 {
   /**
-   * @Method Load
+   * @Method Parse
    * @Description Parses a JSON string into an AHK value {{{
-   * @Syntax value := JSON.Load(text[, reviver])
-   * @Param {ByRef String} test JSON formatted string
+   * @Syntax value := JSON.Parse(text[, reviver])
+   * @Param {ByRef String} text JSON formatted string
    * @Param {Function} [reviver] function object, similar to JavaScript's JSON.parse() 'reviver' parameter
    * @Return {Object} parsed value
    */
-  class Load extends JSON.Functor
+  class Parse extends JSON.Functor
   {
     Call(self, ByRef text, reviver:="")
     {
@@ -211,17 +208,17 @@ class JSON
   } ; }}}
 
   /**
-   * @Method Dump
+   * @Method Stringify
    * @Description Converts an AHK value into a JSON string {{{
-   * @Syntax str := JSON.Dump(value[, replacer, space])
+   * @Syntax str := JSON.Stringify(value[, replacer, space])
    * @Param {Object/String/Number} value any value(object, string, number)
    * @Param {Function} [replacer] function object, similar to JavaScript's JSON.stringify() 'replacer' parameter
    * @Param {Integer} [space] similar to JavaScript's JSON.stringify() 'space' parameter
    * @Return {String} JSON representation of an AHK value
    */
-  class Dump extends JSON.Functor
+  class Stringify extends JSON.Functor
   {
-    Call(self, value, replacer:="", space:="", codePointing:=True)
+    Call(self, value, replacer:="", space:="", escapeUnicode:=True)
     {
       this.rep := IsObject(replacer) ? replacer : ""
 
@@ -237,10 +234,10 @@ class JSON
         this.indent := "`n"
       }
 
-      return this.Str({"": value}, "", codePointing)
+      return this.Str({"": value}, "", escapeUnicode)
     }
 
-    Str(holder, key, codePointing:=True)
+    Str(holder, key, escapeUnicode:=True)
     {
       value := holder[key]
 
@@ -273,18 +270,18 @@ class JSON
               if (this.gap)
                 str .= this.indent
 
-              v := this.Str(value, A_Index, codePointing)
+              v := this.Str(value, A_Index, escapeUnicode)
               str .= (v != "") ? v . "," : "null,"
             }
           } else {
             colon := this.gap ? ": " : ":"
             for k in value {
-              v := this.Str(value, k, codePointing)
+              v := this.Str(value, k, escapeUnicode)
               if (v != "") {
                 if (this.gap)
                   str .= this.indent
 
-                str .= this.Quote(k, codePointing) . colon . v . ","
+                str .= this.Quote(k, escapeUnicode) . colon . v . ","
               }
             }
           }
@@ -302,11 +299,11 @@ class JSON
         }
 
       } else { ; is_number ? value : "value"
-          return ObjGetCapacity([value], 1)=="" ? value : this.Quote(value, codePointing)
+          return ObjGetCapacity([value], 1)=="" ? value : this.Quote(value, escapeUnicode)
       }
     }
 
-    Quote(string, codePointing:=True)
+    Quote(string, escapeUnicode:=True)
     {
       static quot := Chr(34), bashq := "\" . quot
 
@@ -321,7 +318,7 @@ class JSON
             , string := StrReplace(string, "`r",  "\r")
             , string := StrReplace(string, "`t",  "\t")
 
-        if (codePointing) {
+        if (escapeUnicode) {
           static rx_escapable := A_AhkVersion<"2"
               ? "O)[^\x20-\x7e]" : "[^\x20-\x7e]"
           while RegExMatch(string, rx_escapable, m)
@@ -371,7 +368,7 @@ class JSON
       FileRead, strJson, %jsonPath%
 
       if (!ErrorLevel) { ; Successfully loaded.
-        parsedObj := JSON.Load(strJson)
+        parsedObj := JSON.Parse(strJson)
       } else {
         ; MsgBox, ERROR: Couldn't read from the JSON "%jsonPath%"!
         Return
@@ -390,15 +387,15 @@ class JSON
   *  @Syntax val := WriteFile(obj, jsonPath)
    * @Param {Object} obj A Custom Object
    * @Param {String} jsonPath A file path of JSON
-   * @Param {String} [codePointing=True] ほ -> U+307B
+   * @Param {String} [escapeUnicode=True] ほ -> U+307B
    * @Return {Number} 0: Failed, 1: Success
    */
   class WriteFile extends JSON.Functor
   {
-    Call(self, obj, jsonPath, codePointing:=True)
+    Call(self, obj, jsonPath, escapeUnicode:=True)
     {
-      ; JSON.Dump(object, [replacer, space, codePointing])
-      stringified := JSON.Dump(obj, , 4, codePointing)
+      ; JSON.Stringify(object, [replacer, space, escapeUnicode])
+      stringified := JSON.Stringify(obj, , 4, escapeUnicode)
 
       ; Remove double quotes from Boolean. ex: "True" -> True
       stringified := RegExReplace(stringified, "i)""(true|false)""", "$1")
