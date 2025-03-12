@@ -1,8 +1,8 @@
-# AhkJson
+# AhkJSON
 
 ## Overview
 
-AhkJson is a JSON handler for AutoHotkey. It is originally derived from [cocobelgica/AutoHotkey-JSON](https://github.com/cocobelgica/AutoHotkey-JSON) and has been adapted for additional features and improvements.  
+AhkJSON is a JSON handler for AutoHotkey. It is originally derived from [cocobelgica/AutoHotkey-JSON](https://github.com/cocobelgica/AutoHotkey-JSON) and has been adapted for additional features and improvements.  
 This library allows you to parse JSON strings into AutoHotkey data structures and convert AutoHotkey objects back into JSON text, supporting advanced features like a "reviver" function (similar to JavaScript).
 
 **Requirements**:  
@@ -13,12 +13,12 @@ This library allows you to parse JSON strings into AutoHotkey data structures an
 ## Installation
 
 1. **Download or clone the repository**  
-   - Clone this repository into a folder named `AhkJson` (or any name you prefer).  
+   - Clone this repository into a folder named `AhkJSON` (or any name you prefer).  
 2. **Include the class in your AutoHotkey script**  
-   - Use `#Include` to import the file `Class_Json.ahk`:
+   - Use `#Include` to import the file `Class_JSON.ahk`:
 
      ```ahk
-     #Include %A_ScriptDir%\AhkJson\Libs\Class_Json.ahk
+     #Include %A_ScriptDir%\AhkJSON\Libs\Class_JSON.ahk
      ```
 
 3. **Verify your AutoHotkey version**  
@@ -62,7 +62,7 @@ Once included, you can call methods from the `JSON` class:
 Here is a minimal usage example:
 
 ```ahk
-#Include %A_ScriptDir%\AhkJson\Libs\Class_Json.ahk
+#Include %A_ScriptDir%\AhkJSON\Libs\Class_JSON.ahk
 
 ; Suppose we have a JSON string:
 jsonText := "{""name"":""AutoHotkey"",""version"":1}"

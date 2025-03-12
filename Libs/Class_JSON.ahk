@@ -3,11 +3,11 @@
  * @FileEncoding UTF-8[dos]
  * @Requirements AutoHotkey v1.1.x. Not confirmed to work on v2.0 or newer.
  * @Installation
- *   Use #Include %A_ScriptDir%\AhkJson\Libs\Class_Json.ahk or copy into your code
+ *   Use #Include %A_ScriptDir%\AhkJSON\Libs\Class_JSON.ahk or copy into your code
  * @License MIT
  * @Links
  *   cocobelgica (original) https://github.com/cocobelgica/AutoHotkey-JSON
- *   Tuckn (forked v2.1.3) https://github.com/tuckn/AhkJson
+ *   Tuckn (forked v2.1.3) https://github.com/tuckn/AhkJSON
  * @Author Tuckn
  * @Email tuckn333@gmail.com
  */
